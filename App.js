@@ -35,8 +35,9 @@ const App: () => Node = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="light" />
       <Text style={styles.text}>hello! I made a RN app</Text>
-      <StatusBar style="auto" />
+      {/* 상태표시줄 */}
     </View>
   );
 };
@@ -52,7 +53,7 @@ const App: () => Node = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
   },
