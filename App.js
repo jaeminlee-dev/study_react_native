@@ -1,40 +1,57 @@
-import {StatusBar} from 'expo-status-bar';
-import React from 'react';
+
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView, Dimensions} from 'react-native';
 const {width, height} = Dimensions.get('window');
-function App() {
-  return (
-    <View style={styles.container}>
-      <StatusBar style="dark"></StatusBar>
-      <View style={styles.city}>
-        <Text style={styles.cityName}>hello</Text>
-      </View>
-      <ScrollView
-        horizontal
-        pagingEnabled
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.weather}>
-        <View style={styles.day}>
-          <Text style={styles.tempature}>27</Text>
-          <Text style={styles.description}>sunny</Text>
-        </View>
-        <View style={styles.day}>
-          <Text style={styles.tempature}>27</Text>
-          <Text style={styles.description}>sunny</Text>
-        </View>
-        <View style={styles.day}>
-          <Text style={styles.tempature}>27</Text>
-          <Text style={styles.description}>sunny</Text>
-        </View>
-        <View style={styles.day}>
-          <Text style={styles.tempature}>27</Text>
-          <Text style={styles.description}>sunny</Text>
-        </View>
-      </ScrollView>
-    </View>
-  );
-}
 
+function App() {
+  const [location, setLocation] = useState(null);
+  const [ok, setOk] = useState(true);
+
+  useEffect(() => {
+    const ask = async () => {
+      const {status} = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setOk(false);
+      }
+      const {
+        coords: {latitude, longitude},
+      } = await Location.getCurrentPositionAsync();
+      setLocation({latitude, longitude});
+    };
+    ask();
+  }, []);
+  
+    return (
+      <View style={styles.container}>
+        <StatusBar style="dark"></StatusBar>
+        <View style={styles.city}>
+          <Text style={styles.cityName}>hello</Text>
+        </View>
+        <ScrollView
+          horizontal
+          pagingEnabled
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.weather}>
+          <View style={styles.day}>
+            <Text style={styles.tempature}>27</Text>
+            <Text style={styles.description}>sunny</Text>
+          </View>
+          <View style={styles.day}>
+            <Text style={styles.tempature}>27</Text>
+            <Text style={styles.description}>sunny</Text>
+          </View>
+          <View style={styles.day}>
+            <Text style={styles.tempature}>27</Text>
+            <Text style={styles.description}>sunny</Text>
+          </View>
+          <View style={styles.day}>
+            <Text style={styles.tempature}>27</Text>
+            <Text style={styles.description}>sunny</Text>
+          </View>
+        </ScrollView>
+      </View>
+    );
+  }
 export default App;
 
 const styles = StyleSheet.create({
